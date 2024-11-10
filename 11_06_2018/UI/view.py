@@ -38,13 +38,14 @@ class View(ft.UserControl):
         self._page.controls.append(self._title)
 
         #row1
-        self._ddAnno=ft.Dropdown(label="Anno")
-        self._btn_avvistamenti=ft.ElevatedButton(text="Avvistamenti", on_click=self._controller.handle_avvistamenti)
+        self._ddAnno=ft.Dropdown(label="Anno",on_change=self._controller.fillDDStati)
+        self._controller.fillDDAnno()
+        self._btn_avvistamenti=ft.ElevatedButton(text="Avvistamenti", on_click=self._controller.handle_graph)
         row1=ft.Row([self._ddAnno, self._btn_avvistamenti], alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row1)
 
         # row2
-        self._ddStato = ft.Dropdown(label="Stato")
+        self._ddStato = ft.Dropdown(label="Stato",disabled=True)
         self._btn_analizza= ft.ElevatedButton(text="Analizza", on_click=self._controller.handle_analizza)
         row2 = ft.Row([self._ddStato, self._btn_analizza], alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row2)
@@ -56,7 +57,6 @@ class View(ft.UserControl):
         # List View where the reply is printed
         self.txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
         self._page.controls.append(self.txt_result)
-        self._controller.fillDDAnno()
         self._page.update()
 
     @property
